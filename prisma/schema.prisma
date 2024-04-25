@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider    = "postgresql"
+  url         = env("DATABASE_URL")
+  directUrl   = env("DIRECT_URL")
+}
+
+model Content {
+  id        String    @id @default(uuid()) @db.Uuid
+  source    String
+  isoLang   String
+  created   DateTime  @default(now())
+  insights  Insight[]
+  summaries Summary[]
+}
+
+model Insight {
+  id        String   @id @default(uuid()) @db.Uuid
+  result    String?
+  status    Status   @default(writing)
+  contentId String   @db.Uuid
+  created   DateTime @default(now())
+  Content   Content  @relation(fields: [contentId], references: [id])
+}
+
+model Summary {
+  id        String   @id @default(uuid()) @db.Uuid
+  result    String?
+  status    Status   @default(writing)
+  contentId String   @db.Uuid
+  created   DateTime @default(now())
+  Content   Content  @relation(fields: [contentId], references: [id])
+}
+
+enum Status {
+  writing
+  ready
+  failed
+}
