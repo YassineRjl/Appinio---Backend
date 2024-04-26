@@ -32,9 +32,12 @@ async function create(req: Request, res: Response, next: NextFunction) {
 async function get(req: Request, res: Response, next: NextFunction) {
     try {
         const { id } = req.params as { id: string };
-        res.json(await content.get(id));
+        const record = await content.get(id);
+        if (record.status === 404)
+            return res.status(record.status).json({ message: record.message });
+        return res.json(record.content);
     } catch (err) {
-        res.status(500).send({ message: 'Error getting content' });
+        res.status(500).json({ message: 'Error getting content' });
         next(err);
     }
 }

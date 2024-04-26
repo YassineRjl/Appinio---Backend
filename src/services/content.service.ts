@@ -39,7 +39,7 @@ async function create({ isoLang, source }: { source: string; isoLang: string }) 
  * @returns {Promise<Content>} Content record with summaries and insights.
  */
 async function get(id: string) {
-    const content = await prisma.content.findFirstOrThrow({
+    const content = await prisma.content.findFirst({
         where: {
             id,
         },
@@ -49,10 +49,18 @@ async function get(id: string) {
             quotes: true,
         },
     });
+    if (!content)
+        return {
+            status: 404,
+            message: 'Content not found',
+        };
     // remove the source since it's a large text
     delete content.source;
     logger.info('Retrieved content successfully');
-    return content;
+    return {
+        status: 200,
+        content,
+    };
 }
 
 export default {

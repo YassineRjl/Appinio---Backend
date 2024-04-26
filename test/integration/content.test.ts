@@ -3,6 +3,7 @@ import request from 'supertest';
 import { prisma } from '../../src/services/db.service';
 import { app } from '../../src/app';
 
+const INVALID_CONTENT_ID = '45e75b05-fbd4-4006-950a-227fad84ab06';
 describe('Content API', () => {
     afterAll(async () => {
         await prisma.$disconnect();
@@ -47,13 +48,13 @@ describe('Content API', () => {
             expect(response.body).toHaveProperty('isoLang', 'en');
             expect(response.body).toHaveProperty('summaries');
             expect(response.body).toHaveProperty('insights');
+            expect(response.body).toHaveProperty('quotes');
         });
 
-        it('should return 500 if content record is not found', async () => {
-            const response = await request(app).get('/content/invalid-id');
-
-            expect(response.status).toBe(500);
-            expect(response.body.message).toBe('Error getting content');
+        it('should return 404 if content record is not found', async () => {
+            const response = await request(app).get(`/content/${INVALID_CONTENT_ID}`);
+            expect(response.status).toBe(404);
+            expect(response.body.message).toBe('Content not found');
         });
     });
 });

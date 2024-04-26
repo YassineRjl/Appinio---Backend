@@ -2,9 +2,11 @@
 import { Request, Response } from 'express';
 import contentController from '../../../src/controllers/content.controller';
 import contentService from '../../../src/services/content.service';
-import { Insight, Summary } from '@prisma/client';
+import { Insight, Quote, Summary } from '@prisma/client';
 
 jest.mock('../../../src/services/content.service');
+
+const MOCK_CONTENT_ID = '45e75b05-fbd4-4006-950a-227fad84ab06';
 
 describe('content.controller', () => {
     let req: Request;
@@ -35,13 +37,12 @@ describe('content.controller', () => {
                 isoLang: 'en',
             };
             req.body = contentData;
-            const mockContentId = 'mock-content-id';
-            (contentService.create as jest.Mock).mockResolvedValueOnce(mockContentId);
+            (contentService.create as jest.Mock).mockResolvedValueOnce(MOCK_CONTENT_ID);
 
             await contentController.create(req, res, next);
 
             expect(contentService.create).toHaveBeenCalledWith(contentData);
-            expect(res.json).toHaveBeenCalledWith(mockContentId);
+            expect(res.json).toHaveBeenCalledWith(MOCK_CONTENT_ID);
         });
 
         it('should handle errors and call next', async () => {
@@ -58,19 +59,22 @@ describe('content.controller', () => {
 
     describe('get', () => {
         it('should retrieve a content record', async () => {
-            const mockContentId = 'mock-content-id';
-            req.params = { id: mockContentId };
+            req.params = { id: MOCK_CONTENT_ID };
             const mockContent = {
-                id: mockContentId,
+                id: MOCK_CONTENT_ID,
                 isoLang: 'en',
                 summaries: [] as Summary[],
                 insights: [] as Insight[],
+                quotes: [] as Quote[],
             };
-            (contentService.get as jest.Mock).mockResolvedValueOnce(mockContent);
+            (contentService.get as jest.Mock).mockResolvedValueOnce({
+                content: mockContent,
+                status: 200,
+            });
 
             await contentController.get(req, res, next);
 
-            expect(contentService.get).toHaveBeenCalledWith(mockContentId);
+            expect(contentService.get).toHaveBeenCalledWith(MOCK_CONTENT_ID);
             expect(res.json).toHaveBeenCalledWith(mockContent);
         });
 
@@ -81,7 +85,7 @@ describe('content.controller', () => {
             await contentController.get(req, res, next);
 
             expect(res.status).toHaveBeenCalledWith(500);
-            expect(res.send).toHaveBeenCalledWith({ message: 'Error getting content' });
+            expect(res.json).toHaveBeenCalledWith({ message: 'Error getting content' });
             expect(next).toHaveBeenCalledWith(error);
         });
     });
