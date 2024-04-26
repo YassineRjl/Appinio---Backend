@@ -8,7 +8,7 @@ const openai = new OpenAI({
 });
 
 export const getAIOutput = async (prompt: PromptType, retry: number = 0) => {
-    if (retry <= 3) throw new Error('Failed to get AI output');
+    if (retry > 3) throw new Error('Failed to get AI output');
     try {
         // check if the content is safe for processing
         const moderation = (await openai.moderations.create({
