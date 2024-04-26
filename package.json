@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "prisma generate && prisma migrate deploy && ts-node src/index.ts",
-        "start": "tsc && prisma generate && prisma migrate deploy && node dist/index.js",
+        "start": "npx tsc && prisma generate && prisma migrate deploy && node dist/index.js",
         "test": "set DEBUG=* && jest --detectOpenHandles --testPathPattern=test --coverage",
         "prisma:init": "npx prisma generate",
         "prisma:migrate": "npx prisma migrate dev --name init",
