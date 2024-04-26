@@ -55,7 +55,7 @@ describe('content.service', () => {
     });
 
     describe('get', () => {
-        it('should retrieve a content record with summaries and insights', async () => {
+        it('should retrieve a content record with summaries, quotes, and insights', async () => {
             const mockContentId = 'mock-content-id';
             const mockContent = {
                 id: mockContentId,
@@ -73,6 +73,7 @@ describe('content.service', () => {
                 include: {
                     summaries: true,
                     insights: true,
+                    quotes: true,
                 },
             });
             expect(result).toEqual({
