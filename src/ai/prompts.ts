@@ -92,10 +92,10 @@ Step 5: You must follow these rules when writing the Description:
     ],
     config: {
         temperature: 0,
-        max_tokens: 1200,
-        top_p: 0,
-        frequency_penalty: 0,
-        presence_penalty: 0,
+        maxTokens: 1200,
+        topP: 0,
+        frequencyPenalty: 0,
+        presencePenalty: 0,
     },
 });
 
@@ -167,10 +167,10 @@ Include a memorable or significant quote that encapsulates a key part of their m
     ],
     config: {
         temperature: 0,
-        max_tokens: 2500,
-        top_p: 0,
-        frequency_penalty: 0,
-        presence_penalty: 0,
+        maxTokens: 2500,
+        topP: 0,
+        frequencyPenalty: 0,
+        presencePenalty: 0,
     },
 });
 
@@ -250,9 +250,9 @@ To ensure the "Quotes" asset is both engaging and informative, follow these stru
     ],
     config: {
         temperature: 0,
-        max_tokens: 1500,
-        top_p: 0,
-        frequency_penalty: 0,
-        presence_penalty: 0,
+        maxTokens: 1500,
+        topP: 0,
+        frequencyPenalty: 0,
+        presencePenalty: 0,
     },
 });

@@ -5,10 +5,10 @@ export type PromptType = {
     }[];
     config: {
         temperature: number;
-        max_tokens: number;
-        top_p: number;
-        frequency_penalty: number;
-        presence_penalty: number;
+        maxTokens: number;
+        topP: number;
+        frequencyPenalty: number;
+        presencePenalty: number;
     };
     model: 'gpt-4-turbo-preview' | 'gpt-4-turbo'; // etc..
 };

@@ -37,6 +37,7 @@ async function get(req: Request, res: Response, next: NextFunction) {
             return res.status(record.status).json({ message: record.message });
         return res.json(record.content);
     } catch (err) {
+        // avoid returning the error message to the client to avoid leaking sensitive information
         res.status(500).json({ message: 'Error getting content' });
         next(err);
     }

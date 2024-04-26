@@ -30,6 +30,7 @@ const writeSummary = async ({
     source: string;
 }) => {
     try {
+        // initialize a record with status writing
         const summaryRecord = await prisma.summary.create({
             data: {
                 status: Status.writing,
@@ -37,9 +38,10 @@ const writeSummary = async ({
             },
         });
 
-        const { result, isFlagged } = await getAIOutput(getSummaryPrompt(source, language));
-        if (isFlagged) throw new Error('Content is flagged');
+        // get the generated output
+        const result = await getAIOutput(getSummaryPrompt(source, language));
 
+        // update the record with the generated output
         await prisma.summary.update({
             where: {
                 id: summaryRecord.id,
@@ -51,6 +53,7 @@ const writeSummary = async ({
         });
     } catch (error) {
         logger.error('Error writing summary', error);
+        // update the record with status failed
         await prisma.summary.update({
             where: {
                 id: contentId,
@@ -72,15 +75,18 @@ const writeInsights = async ({
     source: string;
 }) => {
     try {
+        // initialize a record with status writing
         const insightsRecord = await prisma.insight.create({
             data: {
                 status: Status.writing,
                 contentId,
             },
         });
-        const { result, isFlagged } = await getAIOutput(getInsightsPrompt(source, language));
-        if (isFlagged) throw new Error('Content is flagged');
 
+        // get the generated output
+        const result = await getAIOutput(getInsightsPrompt(source, language));
+
+        // update the record with the generated output
         await prisma.insight.update({
             where: {
                 id: insightsRecord.id,
@@ -92,6 +98,8 @@ const writeInsights = async ({
         });
     } catch (error) {
         logger.error('Error writing insights', error);
+
+        // update the record with status failed
         await prisma.insight.update({
             where: {
                 id: contentId,
@@ -113,15 +121,18 @@ const writeQuotes = async ({
     source: string;
 }) => {
     try {
+        // initialize a record with status writing
         const quotesRecord = await prisma.quote.create({
             data: {
                 status: Status.writing,
                 contentId,
             },
         });
-        const { result, isFlagged } = await getAIOutput(getQuotesPrompt(source, language));
-        if (isFlagged) throw new Error('Content is flagged');
 
+        // get the generated output
+        const result = await getAIOutput(getQuotesPrompt(source, language));
+
+        // update the record with the generated output
         await prisma.quote.update({
             where: {
                 id: quotesRecord.id,
@@ -133,6 +144,8 @@ const writeQuotes = async ({
         });
     } catch (error) {
         logger.error('Error writing quotes', error);
+
+        // update the record with status failed
         await prisma.quote.update({
             where: {
                 id: contentId,
