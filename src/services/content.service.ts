@@ -56,7 +56,7 @@ async function get(id: string) {
         };
     // remove the source since it's a large text
     delete content.source;
-    logger.info('Retrieved content successfully');
+    logger.info('Retrieved content successfully', { id });
     return {
         status: 200,
         content,

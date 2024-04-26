@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import content from '../services/content.service';
+import { Content } from '@prisma/client';
 /**
- * Creates a new content record with a summary and insights.
+ * Creates a new content record with a summary, insights, and quotes.
  * @async
  * @function create
  * @param {Request} req - Express request object.
  * @param {Response} res - Express response object.
  * @param {NextFunction} next - Express next function.
- * @returns {Promise<void>} - Promise that resolves when the response is sent.
+ * @returns {Promise<string>} - Promise that resolves the content id.
  */
 async function create(req: Request, res: Response, next: NextFunction) {
     try {
@@ -27,7 +28,7 @@ async function create(req: Request, res: Response, next: NextFunction) {
  * @param {Request} req - Express request object.
  * @param {Response} res - Express response object.
  * @param {NextFunction} next - Express next function.
- * @returns {Promise<void>} - Promise that resolves when the response is sent.
+ * @returns {Promise<Content>} - Promise that resolves when the response is sent.
  */
 async function get(req: Request, res: Response, next: NextFunction) {
     try {
