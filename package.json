@@ -1,5 +1,5 @@
 {
-    "name": "backend-test",
+    "name": "appinio-be",
     "version": "1.0.0",
     "description": "Basic setup to for the backend engineer test",
     "main": "index.js",
