@@ -81,7 +81,7 @@ describe('content.controller', () => {
             await contentController.get(req, res, next);
 
             expect(res.status).toHaveBeenCalledWith(500);
-            expect(res.send).toHaveBeenCalledWith({ message: 'Error creating content' });
+            expect(res.send).toHaveBeenCalledWith({ message: 'Error getting content' });
             expect(next).toHaveBeenCalledWith(error);
         });
     });

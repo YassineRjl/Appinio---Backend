@@ -53,7 +53,7 @@ describe('Content API', () => {
             const response = await request(app).get('/content/invalid-id');
 
             expect(response.status).toBe(500);
-            expect(response.body.message).toBe('Error creating content');
+            expect(response.body.message).toBe('Error getting content');
         });
     });
 });
