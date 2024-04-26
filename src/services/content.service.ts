@@ -46,6 +46,7 @@ async function get(id: string) {
         include: {
             summaries: true,
             insights: true,
+            quotes: true,
         },
     });
     // remove the source since it's a large text
