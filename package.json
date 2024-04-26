@@ -4,10 +4,14 @@
     "description": "Basic setup to for the backend engineer test",
     "main": "index.js",
     "scripts": {
-        "start": "ts-node src/index.ts",
+        "dev": "prisma generate && prisma migrate deploy && ts-node src/index.ts",
+        "start": "tsc && prisma generate && prisma migrate deploy && node dist/index.js",
         "test": "set DEBUG=* && jest --detectOpenHandles --testPathPattern=test --coverage",
         "prisma:init": "npx prisma generate",
-        "prisma:migrate": "npx prisma migrate dev --name init"
+        "prisma:migrate": "npx prisma migrate dev --name init",
+        "docker:build": "docker-compose build",
+        "docker:up": "docker-compose up",
+        "docker:down": "docker-compose down"
     },
     "author": "Christoph Fey",
     "license": "ISC",

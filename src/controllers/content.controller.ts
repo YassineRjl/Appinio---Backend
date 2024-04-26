@@ -34,7 +34,7 @@ async function get(req: Request, res: Response, next: NextFunction) {
         const { id } = req.params as { id: string };
         res.json(await content.get(id));
     } catch (err) {
-        res.status(500).send({ message: 'Error creating content' });
+        res.status(500).send({ message: 'Error getting content' });
         next(err);
     }
 }

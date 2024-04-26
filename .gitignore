@@ -6,3 +6,5 @@ npm-debug.log
 coverage
 combined.log
 error.log
+postgres-data
+dist
