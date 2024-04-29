@@ -10,11 +10,11 @@ dotenv.config();
 
 export const app: Express = express();
 
+app.use(cors()).use(express.json()).options('*', cors());
+
 app.use(limiter);
 
 app.use(loggingMiddleware.logger);
-
-app.use(cors()).use(express.json()).options('*', cors());
 
 app.post('/content', contentMiddlware.createContentValidator, contentController.create);
 app.get('/content/:id', contentController.get);

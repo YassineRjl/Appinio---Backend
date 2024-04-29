@@ -61,7 +61,7 @@ The project uses Winston for logging. Logs are written to the console and stored
 
 ## Rate Limiting
 
-The API endpoints are protected by rate limiting middleware. Each IP is limited to 100 requests per 5-minute window.
+The API endpoints are protected by rate limiting middleware. Each IP is limited to 100 requests per 1-minute window.
 
 ## OpenAI Integration
 
